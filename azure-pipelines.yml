@@ -1,0 +1,41 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+#- task: CopyFilesOverSSH@0
+#  inputs:
+#    sshEndpoint: 'somayyah@13.90.97.208'
+#    sourceFolder: 'dev_scripts/'
+#    contents: '**'
+#    targetFolder: '~/build/dev_scripts'
+#    cleanTargetFolder: true
+#    overwrite: true
+#    readyTimeout: '20000'
+
+#- task: CopyFilesOverSSH@0
+#  inputs:
+#    sshEndpoint: 'somayyah@13.90.97.208'
+#    sourceFolder: 'hello_app/'
+#    contents: '**'
+#    targetFolder: '~/build/hello_app'
+#    cleanTargetFolder: true
+#    overwrite: true
+#    readyTimeout: '20000'
+
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'somayyah@13.90.97.208'
+    runOptions: 'commands'
+    commands: 'bash ~/htu-ict-devops-cicd-webapp/setup-environment.sh'
+    readyTimeout: '20000'
